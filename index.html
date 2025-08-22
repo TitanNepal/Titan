@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN - IPM Trainers Association Nepal</title>
+    <style>
+        :root {
+            --primary: #DC143C;      /* Crimson red - reflects Nepali flag */
+            --secondary: #003893;    /* Deep blue - reflects Nepali flag */
+            --accent: #F8C300;       /* Golden yellow - cultural significance */
+            --light: #F5F5F5;
+            --dark: #333;
+            --nature-green: #2E8B57;
+            --nature-light-green: #98FB98;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f8f8"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23eaeaea" stroke-width="1"/></svg>');
+            background-size: cover;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.1) 0%, rgba(0, 56, 147, 0.1) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--dark);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--nature-green) 0%, var(--nature-light-green) 100%);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--nature-green) 0%, var(--nature-light-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .member-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .member-info p {
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .contact-details {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-img">TITAN</div>
+                <h1>IPM Trainers Association Nepal</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>एकीकृत शत्रुजीव व्यवस्थापन प्रशिक्षक संस्था नेपाल</h2>
+            <p>The IPM Trainers Association Nepal (TITAN) - Promoting sustainable natural resource management through farmer field schools since 2002</p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About TITAN</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>The IPM Trainers Association Nepal (TITAN) was established in 2002 with a mission to promote Integrated Pest Management (IPM) and sustainable agricultural practices through farmer field schools across Nepal.</p>
+                    <p>Currently, TITAN is implementing 60 Natural Resource Management Field Schools in Koshi Province under the "Building a Resilient Churia Region in Nepal" (BRCRN) project funded by the Green Climate Fund (GCF) and implemented by FAO in partnership with the Ministry of Forests and Environment.</p>
+                    <p>Our work focuses on climate-resilient land use practices, forest ecosystem management, and building resilience to climate-induced hazards in vulnerable river systems.</p>
+                </div>
+                <div class="about-image">
+                    NRM Field School Activities
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" style="background-color: #f0f8f0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">NRM Field Schools</div>
+                    <div class="project-content">
+                        <h3>NRM Field Schools in Koshi Province</h3>
+                        <p>TITAN is currently operating 60 Natural Resource Management Field Schools across 16 river systems in Koshi Province, promoting climate-resilient land use practices.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">BRCRN Project</div>
+                    <div class="project-content">
+                        <h3>Building a Resilient Churia Region</h3>
+                        <p>Working with FAO and MoFE on Nepal's first full-scale GCF funded project across 26 river systems in Koshi, Madhesh, and Bagmati Provinces.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">Capacity Building</div>
+                    <div class="project-content">
+                        <h3>Farmer Training & Capacity Building</h3>
+                        <p>Conducting training programs for farmers on sustainable agriculture, forest management, and climate-resilient practices through the field school approach.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Executive Committee</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-img">PA</div>
+                    <div class="member-info">
+                        <h3>Mr. Parashu Ram Adhikari</h3>
+                        <p>Chairperson</p>
+                        <p>+977-9841564804</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-img">DT</div>
+                    <div class="member-info">
+                        <h3>Mr. Dinesh Babu Tiwari</h3>
+                        <p>Vice-Chairperson</p>
+                        <p>+977-9841417834</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-img">LK</div>
+                    <div class="member-info">
+                        <h3>Mr. Laxmi Prasad Kharel</h3>
+                        <p>General Secretary</p>
+                        <p>+977-9841373283</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-img">DD</div>
+                    <div class="member-info">
+                        <h3>Mr. Dharmendra Dhakal</h3>
+                        <p>NRM FS Provincial Coordinator (Koshi)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background-color: #f0f8f0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-details">
+                        <p><strong>Address:</strong> Lalitpur Metropolitan City-3, Harihar Bhawan, Lalitpur, Nepal</p>
+                        <p><strong>Email:</strong> titanepal.2002@gmail.com</p>
+                        <p><strong>Phone:</strong> +977-9841564804 (Chairperson)</p>
+                        <p><strong>Registration:</strong> Regd.No.04/059/060, VAT No-301213000</p>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>River Systems in Koshi Province</h3>
+                    <p>TITAN is currently working in 16 river systems across Koshi Province:</p>
+                    <ul>
+                        <li>Kankai, Mechi, Ratuwa, Biring</li>
+                        <li>Bakraha, Lohandra, Budhi</li>
+                        <li>Tawa South, Patnali, Kokaha</li>
+                        <li>Andheri, Baruwa, Duar, Gideri</li>
+                        <li>Sunkoshi, Balan (Upstream)</li>
+                        <li>Tawa North, Kamala-Belsot-Jogiya</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <h3>IPM Trainers Association Nepal</h3>
+            </div>
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#team">Team</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2023 TITAN - IPM Trainers Association Nepal. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
