@@ -96,22 +96,14 @@
         
         /* Hero Section */
         .hero {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f8f8"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23eaeaea" stroke-width="1"/></svg>');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.54.17_17932b0c.jpg?raw=true');
             background-size: cover;
+            background-position: center;
             padding: 4rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-        
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(220, 20, 60, 0.1) 0%, rgba(0, 56, 147, 0.1) 100%);
+            color: white;
         }
         
         .hero-content {
@@ -122,14 +114,16 @@
         .hero h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--secondary);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .hero p {
             font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto 2rem;
-            color: var(--dark);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .btn {
@@ -200,14 +194,16 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, var(--nature-green) 0%, var(--nature-light-green) 100%);
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         /* Projects Section */
@@ -231,11 +227,18 @@
         
         .project-img {
             height: 200px;
-            background: linear-gradient(135deg, var(--nature-green) 0%, var(--nature-light-green) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-img img {
+            transform: scale(1.05);
         }
         
         .project-content {
@@ -268,12 +271,14 @@
             height: 120px;
             border-radius: 50%;
             margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+        }
+        
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .member-info h3 {
@@ -285,6 +290,32 @@
         .member-info p {
             color: #666;
             font-style: italic;
+        }
+        
+        /* Gallery Section */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         /* Contact Section */
@@ -378,6 +409,10 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .gallery-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
@@ -394,6 +429,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#team">Team</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -422,8 +458,8 @@
                     <p>Currently, TITAN is implementing 60 Natural Resource Management Field Schools in Koshi Province under the "Building a Resilient Churia Region in Nepal" (BRCRN) project funded by the Green Climate Fund (GCF) and implemented by FAO in partnership with the Ministry of Forests and Environment.</p>
                     <p>Our work focuses on climate-resilient land use practices, forest ecosystem management, and building resilience to climate-induced hazards in vulnerable river systems.</p>
                 </div>
-                <div class="about-image"> 
-                     NRM Field School Activities
+                <div class="about-image">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.55.27_fe32a044.jpg?raw=true" alt="TITAN Field Activities">
                 </div>
             </div>
         </div>
@@ -437,21 +473,27 @@
             </div>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-img">NRM Field Schools</div>
+                    <div class="project-img">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-21%20at%2012.10.59_442512c6.jpg?raw=true" alt="NRM Field Schools">
+                    </div>
                     <div class="project-content">
                         <h3>NRM Field Schools in Koshi Province</h3>
                         <p>TITAN is currently operating 60 Natural Resource Management Field Schools across 16 river systems in Koshi Province, promoting climate-resilient land use practices.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-img">BRCRN Project</div>
+                    <div class="project-img">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-04-12%20at%2014.56.40_119ca8f8.jpg?raw=true" alt="BRCRN Project">
+                    </div>
                     <div class="project-content">
                         <h3>Building a Resilient Churia Region</h3>
                         <p>Working with FAO and MoFE on Nepal's first full-scale GCF funded project across 26 river systems in Koshi, Madhesh, and Bagmati Provinces.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-img">Capacity Building</div>
+                    <div class="project-img">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.50.22_1ac198e0.jpg?raw=true" alt="Farmer Training">
+                    </div>
                     <div class="project-content">
                         <h3>Farmer Training & Capacity Building</h3>
                         <p>Conducting training programs for farmers on sustainable agriculture, forest management, and climate-resilient practices through the field school approach.</p>
@@ -469,7 +511,9 @@
             </div>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-img">PA</div>
+                    <div class="member-img">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Profile%20image.jpg?raw=true" alt="Mr. Parashu Ram Adhikari">
+                    </div>
                     <div class="member-info">
                         <h3>Mr. Parashu Ram Adhikari</h3>
                         <p>Chairperson</p>
@@ -477,7 +521,9 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-img">DT</div>
+                    <div class="member-img">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;">DT</div>
+                    </div>
                     <div class="member-info">
                         <h3>Mr. Dinesh Babu Tiwari</h3>
                         <p>Vice-Chairperson</p>
@@ -485,7 +531,9 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-img">LK</div>
+                    <div class="member-img">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;">LK</div>
+                    </div>
                     <div class="member-info">
                         <h3>Mr. Laxmi Prasad Kharel</h3>
                         <p>General Secretary</p>
@@ -493,7 +541,9 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-img">DD</div>
+                    <div class="member-img">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;">DD</div>
+                    </div>
                     <div class="member-info">
                         <h3>Mr. Dharmendra Dhakal</h3>
                         <p>NRM FS Provincial Coordinator (Koshi)</p>
@@ -503,8 +553,38 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section id="gallery" style="background-color: #f0f8f0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Gallery</h2>
+            </div>
+            <p style="text-align: center; margin-bottom: 2rem;">A glimpse into our field activities and community engagement programs</p>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.54.17_17932b0c.jpg?raw=true" alt="TITAN Activity 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.55.27_fe32a044.jpg?raw=true" alt="TITAN Activity 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-21%20at%2012.10.59_442512c6.jpg?raw=true" alt="TITAN Activity 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-04-12%20at%2014.56.40_119ca8f8.jpg?raw=true" alt="TITAN Activity 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.50.22_1ac198e0.jpg?raw=true" alt="TITAN Activity 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.47.41_ade81b4c.jpg?raw=true" alt="TITAN Activity 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
-    <section id="contact" style="background-color: #f0f8f0;">
+    <section id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contact Us</h2>
@@ -545,6 +625,7 @@
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
                 <a href="#team">Team</a>
+                <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
             </div>
             <p>&copy; 2023 TITAN - IPM Trainers Association Nepal. All rights reserved.</p>
