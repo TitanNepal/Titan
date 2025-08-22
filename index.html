@@ -385,6 +385,46 @@
             color: var(--accent);
         }
         
+        /* Modal for team member details */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -413,6 +453,11 @@
             .gallery-container {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
+            
+            .modal-content {
+                width: 90%;
+                margin: 20% auto;
+            }
         }
     </style>
 </head>
@@ -422,7 +467,7 @@
         <div class="container header-content">
             <div class="logo">
                 <div class="logo-img">TITAN</div>
-                <h1>IPM Trainers Association Nepal</h1>
+                <h1>The IPM Trainers Association Nepal</h1>
             </div>
             <nav>
                 <ul>
@@ -459,7 +504,7 @@
                     <p>Our work focuses on climate-resilient land use practices, forest ecosystem management, and building resilience to climate-induced hazards in vulnerable river systems.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/Profile%20image.jpg?raw=true"TITAN Field Activities">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/Profile%20image.jpg?raw=true" alt="TITAN Field Activities">
                 </div>
             </div>
         </div>
@@ -542,10 +587,10 @@
                 </div>
                 <div class="team-member">
                     <div class="member-img">
-                       <img src="https://github.com/TitanNepal/Titan/blob/main/images/Dhakal.PNG?raw=true" alt="Mr. Dharmendra Dhakal">
+                       <img src="https://github.com/TitanNepal/Titan/blob/main/images/Dhakal.PNG?raw=true" alt="Mr. Dharmendra Dhakal" style="cursor:pointer;" onclick="showMemberModal()">
                     </div>
                     <div class="member-info">
-                        <h3>Mr. Dharmendra Dhakal</h3>
+                        <h3 style="cursor:pointer;" onclick="showMemberModal()">Mr. Dharmendra Dhakal</h3>
                         <p>+977-9842759960</p>
                         <p>Email-dharmendradhakal14@gmail.com</p>
                         <p>NRM FS Provincial Coordinator (Koshi)</p>
@@ -554,6 +599,19 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal for Dharmendra Dhakal -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMemberModal()">&times;</span>
+            <h2>Dharmendra Dhakal</h2>
+            <p><strong>Position:</strong> NRM Field School Provincial Coordinator (Koshi)</p>
+            <p><strong>Education:</strong> Bachelor of Science and Agriculture (Honors) - 85.19%</p>
+            <p><strong>Expertise:</strong> Natural Resource Management, agronomy research, and community engagement. Skilled in project coordination and sustainable practices.</p>
+            <p><strong>Experience:</strong> Currently serving as NRM Field School Provincial Coordinator for The IPM Trainers Association Nepal (TITAN) / FAO Nepal (BRCRN Project), coordinating climate-resilient NRM activities across Koshi Province.</p>
+            <p><strong>Contact:</strong> +977-9842759960 | dharmendradhakal14@gmail.com</p>
+        </div>
+    </div>
 
     <!-- Gallery Section -->
     <section id="gallery" style="background-color: #f0f8f0;">
@@ -564,22 +622,79 @@
             <p style="text-align: center; margin-bottom: 2rem;">A glimpse into our field activities and community engagement programs</p>
             <div class="gallery-container">
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.54.17_17932b0c.jpg?raw=true" alt="TITAN Activity 1">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/vasan%20in%20sangam%20field.jpg?raw=true" alt="Field Activity">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-17%20at%2015.55.27_fe32a044.jpg?raw=true" alt="TITAN Activity 2">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapyr.jpg?raw=true" alt="Field Activity">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-21%20at%2012.10.59_442512c6.jpg?raw=true" alt="TITAN Activity 3">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapur.jpg?raw=true" alt="Field Activity">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-04-12%20at%2014.56.40_119ca8f8.jpg?raw=true" alt="TITAN Activity 4">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting.jpg?raw=true" alt="Transplanting Activity">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.50.22_1ac198e0.jpg?raw=true" alt="TITAN Activity 5">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting%20(2).jpg?raw=true" alt="Transplanting Activity">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.47.41_ade81b4c.jpg?raw=true" alt="TITAN Activity 6">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/tennpani.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/supade.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/sunkoshi.jpg?raw=true" alt="Sunkoshi River">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/soil%20conservation.jpg?raw=true" alt="Soil Conservation">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya%20vasan.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%206.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%202.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/review.jpg?raw=true" alt="Project Review">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery.jpg?raw=true" alt="Nursery">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery%20cure.jpg?raw=true" alt="Nursery Care">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/megnath.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/mahadewa.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang%20sangam.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/kuwadi.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwash.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwah%20upasthiti.jpg?raw=true" alt="Field Activity">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/dev%20kumari%20field%20celebration.jpg?raw=true" alt="Field Celebration">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/harka.jpg?raw=true" alt="Field Activity">
                 </div>
             </div>
         </div>
@@ -633,5 +748,25 @@
             <p>&copy; 2023 TITAN - The IPM Trainers Association Nepal. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Function to show modal with Dharmendra Dhakal's details
+        function showMemberModal() {
+            document.getElementById("memberModal").style.display = "block";
+        }
+        
+        // Function to close the modal
+        function closeMemberModal() {
+            document.getElementById("memberModal").style.display = "none";
+        }
+        
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById("memberModal");
+            if (event.target == modal) {
+                closeMemberModal();
+            }
+        }
+    </script>
 </body>
 </html>
