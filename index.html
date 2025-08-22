@@ -395,42 +395,27 @@
             color: var(--primary);
         }
         
-        /* Message Form */
-        .message-form {
+        /* Google Form Styling */
+        .google-form-container {
             background: white;
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 600px;
+            overflow: hidden;
         }
         
-        .form-group {
-            margin-bottom: 1.5rem;
+        .google-form-container h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-align: center;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
-        .form-control {
+        .google-form-frame {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--nature-green);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
+            height: 100%;
+            border: none;
         }
         
         /* Footer */
@@ -537,6 +522,10 @@
             .modal-content {
                 width: 90%;
                 margin: 20% auto;
+            }
+            
+            .google-form-container {
+                height: 500px;
             }
         }
     </style>
@@ -838,133 +827,14 @@
                     </ul>
                 </div>
                 
-                <div class="message-form">
-                    <!-- Send Us a Message Section -->
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="section-title">
-      <h2>Send Us a Message</h2>
-      <p>If you have any queries or need more information, please fill out the form below. Our team will respond as soon as possible.</p>
-    </div>
-
-    <!-- Form Wrapper with Sticky Header -->
-    <div class="form-wrapper">
-      <div class="form-header">
-        <img src="your-logo.png" alt="IPM Trainers Association Nepal Logo" class="form-logo">
-        <h3>📩 Query Form</h3>
-      </div>
-      <div class="form-container">
-        <iframe 
-          src="https://docs.google.com/forms/d/e/19av7Kx1K71arGW4pljJ8B7GhgsF4yuihrdW-xv9jt4E/viewform?embedded=true" 
-          frameborder="0" 
-          marginheight="0" 
-          marginwidth="0">
-          Loading…
-        </iframe>
-      </div>
-    </div>
-
-    <!-- Fallback Button -->
-    <div class="fallback-link">
-      <a href="https://docs.google.com/forms/d/19av7Kx1K71arGW4pljJ8B7GhgsF4yuihrdW-xv9jt4E/viewform" 
-         target="_blank" 
-         class="green-btn">
-        Open Form in New Tab
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Styling -->
-<style>
-  /* Wrapper for sticky header + form */
-  .form-wrapper {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-height: 600px;
-    position: relative;
-  }
-
-  /* Sticky header bar (professional left alignment) */
-  .form-header {
-    background: #218838;
-    color: #fff;
-    padding: 10px 15px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* align left */
-    gap: 10px;
-  }
-
-  .form-header .form-logo {
-    height: 28px;
-    width: auto;
-  }
-
-  .form-header h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  /* Responsive form container */
-  .form-container {
-    position: relative;
-    width: 100%;
-    padding-top: 65%;
-    overflow: hidden;
-    max-height: 550px;
-  }
-
-  .form-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  /* Adjustments for mobile */
-  @media (max-width: 768px) {
-    .form-container {
-      padding-top: 100%;
-      max-height: 450px;
-    }
-    .form-header h3 {
-      font-size: 16px;
-    }
-    .form-header .form-logo {
-      height: 22px;
-    }
-  }
-
-  /* Fallback link */
-  .fallback-link {
-    text-align: center;
-    margin-top: 15px;
-  }
-
-  /* Green button */
-  .green-btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: #28a745;
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-  .green-btn:hover {
-    background: #218838;
-  }
-</style>
+                <!-- Google Form Section -->
+                <div class="google-form-container">
+                    <h3>Send Us a Message</h3>
+                    <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/19av7Kx1K71arGW4pljJ8B7GhgsF4yuihrdW-xv9jt4E/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -1002,13 +872,6 @@
                 closeMemberModal();
             }
         }
-        
-        // Form submission handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
-        });
     </script>
 </body>
 </html>
