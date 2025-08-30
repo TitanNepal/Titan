@@ -26,6 +26,65 @@
             background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
+            position: relative;
+        }
+        
+        /* Nepal Flag in corner */
+        .nepal-flag {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 80px;
+            z-index: 1000;
+            background: linear-gradient(to bottom, #DC143C, #DC143C 60%, #003893 60%, #003893);
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+        }
+        
+        .nepal-flag::before, .nepal-flag::after {
+            content: "";
+            position: absolute;
+            background: white;
+        }
+        
+        .nepal-flag::before {
+            /* Moon */
+            top: 20px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            box-shadow: inset -2px -2px 0 0 #003893;
+        }
+        
+        .nepal-flag::after {
+            /* Sun */
+            top: 45px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 0 2px #DC143C;
+        }
+        
+        /* Nature background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=10'), 
+                             url('https://images.unsplash.com/photo-1492496913980-501348b61469?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=10');
+            background-blend-mode: soft-light;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
         }
         
         .container {
@@ -150,6 +209,8 @@
         /* Section Styles */
         section {
             padding: 4rem 0;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.9);
         }
         
         .section-title {
@@ -602,6 +663,13 @@
             .google-form-container {
                 height: 500px;
             }
+            
+            .nepal-flag {
+                width: 40px;
+                height: 60px;
+                top: 5px;
+                right: 5px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -618,10 +686,32 @@
             .gallery-controls {
                 bottom: 10px;
             }
+            
+            .nepal-flag {
+                width: 30px;
+                height: 45px;
+            }
+            
+            .nepal-flag::before {
+                top: 15px;
+                left: 7px;
+                width: 10px;
+                height: 10px;
+            }
+            
+            .nepal-flag::after {
+                top: 32px;
+                left: 7px;
+                width: 10px;
+                height: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Nepal Flag -->
+    <div class="nepal-flag"></div>
+
     <!-- Header -->
     <header>
         <div class="container header-content">
@@ -686,7 +776,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" style="background-color: #f0f8f0;">
+    <section id="projects" style="background-color: rgba(240, 248, 240, 0.9);">
         <div class="container">
             <div class="section-title">
                 <h2>Our Projects</h2>
@@ -796,7 +886,7 @@
     </section>
 
     <!-- NEW: Programs & Meetings Section -->
-    <section id="programs" style="background-color: #f0f8f0;">
+    <section id="programs" style="background-color: rgba(240, 248, 240, 0.9);">
         <div class="container">
             <div class="section-title">
                 <h2>Programs &amp; Meetings</h2>
@@ -821,7 +911,7 @@
     </section>
 
     <!-- News Section -->
-    <section id="news" style="background-color: #f0f8f0;">
+    <section id="news" style="background-color: rgba(240, 248, 240, 0.9);">
         <div class="container">
             <div class="section-title">
                 <h2>News & Announcements</h2>
@@ -1110,6 +1200,10 @@
             }, false);
             
             function handleSwipe() {
+                const minSwipeDistance = 50; // Minimum distance for a swipe to be registered
+                
+                if (touchStartX - touchEndX > minSwipe
+                      function handleSwipe() {
                 const minSwipeDistance = 50; // Minimum distance for a swipe to be registered
                 
                 if (touchStartX - touchEndX > minSwipeDistance) {
