@@ -296,30 +296,86 @@
             font-style: italic;
         }
         
-        /* Gallery Section */
+        /* Gallery Section - UPDATED */
         .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .gallery-item {
-            border-radius: 8px;
+            position: relative;
+            max-width: 100%;
+            margin: 2rem auto;
             overflow: hidden;
-            height: 200px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            height: 400px;
         }
         
-        .gallery-item:hover {
-            transform: scale(1.03);
+        .gallery-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
         }
         
-        .gallery-item img {
+        .gallery-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+        
+        .gallery-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .gallery-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .gallery-dot.active {
+            background: white;
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+        
+        .gallery-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .gallery-nav.prev {
+            left: 15px;
+        }
+        
+        .gallery-nav.next {
+            right: 15px;
         }
         
         /* News Section */
@@ -508,6 +564,11 @@
             nav ul {
                 margin-top: 1rem;
                 justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
             }
             
             .about-content,
@@ -524,7 +585,12 @@
             }
             
             .gallery-container {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                height: 300px;
+            }
+            
+            .gallery-nav {
+                width: 30px;
+                height: 30px;
             }
             
             .modal-content {
@@ -534,6 +600,22 @@
             
             .google-form-container {
                 height: 500px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-container {
+                height: 250px;
+            }
+            
+            .gallery-nav {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+            
+            .gallery-controls {
+                bottom: 10px;
             }
         }
     </style>
@@ -759,79 +841,89 @@
         </div>
     </div>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section - UPDATED -->
     <section id="gallery">
         <div class="container">
             <div class="section-title">
                 <h2>Our Gallery</h2>
             </div>
             <p style="text-align: center; margin-bottom: 2rem;">A glimpse into our field activities and community engagement programs</p>
+            
             <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/vasan%20in%20sangam%20field.jpg?raw=true" alt="Field Activity">
+                <div class="gallery-slider">
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/vasan%20in%20sangam%20field.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapyr.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapur.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting.jpg?raw=true" alt="Transplanting Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting%20(2).jpg?raw=true" alt="Transplanting Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/tennpani.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/supade.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/sunkoshi.jpg?raw=true" alt="Sunkoshi River">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/soil%20conservation.jpg?raw=true" alt="Soil Conservation">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya%20vasan.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%206.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%202.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/review.jpg?raw=true" alt="Project Review">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery%20cure.jpg?raw=true" alt="Nursery Care">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/mahadewa.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang%20sangam.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwash.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwah%20upasthiti.jpg?raw=true" alt="Field Activity">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/dev%20kumari%20field%20celebration.jpg?raw=true" alt="Field Celebration">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/harka.jpg?raw=true" alt="Field Activity">
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapyr.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapur.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting.jpg?raw=true" alt="Transplanting Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting%20(2).jpg?raw=true" alt="Transplanting Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/tennpani.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/supade.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/sunkoshi.jpg?raw=true" alt="Sunkoshi River">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/soil%20conservation.jpg?raw=true" alt="Soil Conservation">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya%20vasan.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%206.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%202.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/review.jpg?raw=true" alt="Project Review">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery%20cure.jpg?raw=true" alt="Nursery Care">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/mahadewa.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang%20sangam.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwash.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwah%20upasthiti.jpg?raw=true" alt="Field Activity">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/dev%20kumari%20field%20celebration.jpg?raw=true" alt="Field Celebration">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/harka.jpg?raw=true" alt="Field Activity">
+                
+                <button class="gallery-nav prev">&#10094;</button>
+                <button class="gallery-nav next">&#10095;</button>
+                
+                <div class="gallery-controls">
+                    <!-- Dots will be generated by JavaScript -->
                 </div>
             </div>
         </div>
@@ -915,6 +1007,99 @@
                 closeMemberModal();
             }
         }
+        
+        // Gallery Slider Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.gallery-slider');
+            const slides = document.querySelectorAll('.gallery-slide');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+            const dotsContainer = document.querySelector('.gallery-controls');
+            
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Create dots for navigation
+            for (let i = 0; i < slideCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('gallery-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            const dots = document.querySelectorAll('.gallery-dot');
+            
+            // Function to go to a specific slide
+            function goToSlide(n) {
+                currentSlide = n;
+                updateSlider();
+            }
+            
+            // Function to update slider position and active dot
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update active dot
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slideCount;
+                updateSlider();
+            }
+            
+            // Previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                updateSlider();
+            }
+            
+            // Event listeners for navigation buttons
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Auto slide every 5 seconds
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Pause auto sliding when hovering over the slider
+            const galleryContainer = document.querySelector('.gallery-container');
+            galleryContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            galleryContainer.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+            
+            // Touch events for mobile swipe
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            galleryContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            galleryContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const minSwipeDistance = 50; // Minimum distance for a swipe to be registered
+                
+                if (touchStartX - touchEndX > minSwipeDistance) {
+                    // Swipe left - next slide
+                    nextSlide();
+                } else if (touchEndX - touchStartX > minSwipeDistance) {
+                    // Swipe right - previous slide
+                    prevSlide();
+                }
+            }
+        });
     </script>
 </body>
 </html>
