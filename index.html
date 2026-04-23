@@ -1,1194 +1,1628 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TITAN - The IPM Trainers Association Nepal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #DC143C;      /* Crimson red - reflects Nepali flag */
-            --secondary: #003893;    /* Deep blue - reflects Nepali flag */
-            --accent: #F8C300;       /* Golden yellow - cultural significance */
-            --light: #F5F5F5;
-            --dark: #333;
-            --nature-green: #2E8B57;
-            --nature-light-green: #98FB98;
+            --primary: #C0392B;
+            --primary-light: #E74C3C;
+            --secondary: #1A3A5C;
+            --accent: #E8A838;
+            --forest: #2D6A4F;
+            --forest-mid: #40916C;
+            --forest-light: #74C69D;
+            --earth: #8B5E3C;
+            --earth-light: #C8A882;
+            --cream: #FAF6F0;
+            --cream-dark: #F0E9DC;
+            --text-dark: #1A1A1A;
+            --text-mid: #4A4A4A;
+            --text-light: #7A7A7A;
+            --white: #FFFFFF;
+            --shadow-sm: 0 2px 12px rgba(0,0,0,0.07);
+            --shadow-md: 0 6px 30px rgba(0,0,0,0.10);
+            --shadow-lg: 0 15px 60px rgba(0,0,0,0.14);
+            --radius: 12px;
+            --radius-lg: 20px;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header Styles */
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--cream-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--forest-mid); border-radius: 10px; }
+
+        /* ── HEADER ── */
         header {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #0D2137 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 0;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
-        
-        .header-content {
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 72px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
+            gap: 14px;
+            text-decoration: none;
         }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            margin-left: 10px;
-        }
-        
-        .logo-img {
-            width: 50px;
-            height: 50px;
+
+        .logo-circle {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
+            border: 2px solid var(--forest-light);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            color: var(--forest-light);
+            letter-spacing: 0.08em;
+            font-weight: 500;
+        }
+
+        nav { display: flex; align-items: center; gap: 0.2rem; }
+
+        nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        nav a:hover { color: white; background: rgba(255,255,255,0.12); }
+
+        /* Hamburger */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            min-height: 92vh;
             display: flex;
             align-items: center;
-            justify-content: center;
+            overflow: hidden;
+            background: #0D1F0A;
         }
-        
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 1.5rem;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://github.com/TitanNepal/Titan/blob/main/images/halojuwa.jpg?raw=true');
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://github.com/TitanNepal/Titan/blob/main/images/halojuwa.jpg?raw=true');
             background-size: cover;
             background-position: center;
-            padding: 4rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            color: white;
+            transform: scale(1.06);
+            transition: transform 8s ease;
+            filter: brightness(0.4) saturate(0.8);
         }
-        
+
+        .hero-bg.loaded { transform: scale(1.0); }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(13,30,10,0.85) 0%,
+                rgba(26,58,92,0.5) 60%,
+                rgba(45,106,79,0.4) 100%
+            );
+        }
+
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
         }
-        
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(116,198,157,0.15);
+            border: 1px solid rgba(116,198,157,0.4);
+            color: var(--forest-light);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge::before { content: "🌿"; font-size: 0.9rem; }
+
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            max-width: 740px;
         }
-        
+
+        .hero h2 em {
+            font-style: italic;
+            color: var(--forest-light);
+        }
+
+        .hero-nepali {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 1.6rem;
+            font-style: italic;
+        }
+
         .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+            line-height: 1.75;
         }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary);
+
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn-primary {
+            background: var(--forest);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--forest);
         }
-        
-        .btn:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        .btn-primary:hover {
+            background: var(--forest-mid);
+            border-color: var(--forest-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45,106,79,0.4);
         }
-        
-        /* Section Styles */
-        section {
-            padding: 4rem 0;
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid rgba(255,255,255,0.4);
         }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+            transform: translateY(-2px);
         }
-        
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--secondary);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-        
-        .section-title h2::after {
-            content: "";
+
+        .hero-stats {
             position: absolute;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 2.5rem;
+            right: 2rem;
+            display: flex;
+            gap: 2rem;
+            z-index: 2;
         }
-        
-        /* About Section */
-        .about-content {
+
+        .hero-stat {
+            text-align: center;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius);
+            padding: 1rem 1.4rem;
+        }
+
+        .hero-stat strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--forest-light);
+            line-height: 1;
+        }
+
+        .hero-stat span { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-top: 4px; display: block; }
+
+        /* ── SECTION BASE ── */
+        section { padding: 5rem 0; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-label::before {
+            content: "";
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--forest);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title span { color: var(--forest); }
+
+        .section-desc { color: var(--text-mid); max-width: 600px; font-size: 1.05rem; margin-bottom: 3rem; }
+
+        /* ── ABOUT ── */
+        #about { background: var(--cream); }
+
+        .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 5rem;
             align-items: center;
         }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-        
-        .about-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .about-image img {
+
+        .about-image-block { position: relative; }
+
+        .about-image-block .main-img {
             width: 100%;
-            height: 100%;
+            height: 460px;
             object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
         }
-        
-        /* Projects Section */
+
+        .about-badge-img {
+            position: absolute;
+            bottom: -24px;
+            right: -24px;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            border: 5px solid var(--cream);
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-leaf {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: var(--forest);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.15;
+        }
+
+        .about-text p { color: var(--text-mid); margin-bottom: 1.2rem; font-size: 0.97rem; }
+
+        .achievements-list {
+            margin: 1.8rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: var(--cream-dark);
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--forest);
+            font-size: 0.9rem;
+            color: var(--text-mid);
+        }
+
+        .achievement-item .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+        .partners {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .partner-tag {
+            background: var(--secondary);
+            color: rgba(255,255,255,0.85);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── PROJECTS ── */
+        #projects { background: var(--cream-dark); }
+
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
-        
+
         .project-card {
             background: white;
-            border-radius: 10px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        
+
+        .project-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
         .project-img {
-            height: 200px;
+            height: 210px;
             overflow: hidden;
+            position: relative;
         }
-        
+
         .project-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
-        
-        .project-card:hover .project-img img {
-            transform: scale(1.05);
+
+        .project-card:hover .project-img img { transform: scale(1.07); }
+
+        .project-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--forest);
+            color: white;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0.25rem 0.7rem;
+            border-radius: 50px;
         }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
+
+        .project-content { padding: 1.6rem; }
+
         .project-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
             color: var(--secondary);
+            margin-bottom: 0.6rem;
         }
-        
-        /* Team Section */
+
+        .project-content p { color: var(--text-mid); font-size: 0.9rem; }
+
+        /* ── TEAM ── */
+        #team { background: var(--cream); }
+
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
         }
-        
-        .team-member {
-            text-align: center;
+
+        .team-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.4rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
         }
-        
-        .member-img {
-            width: 120px;
-            height: 120px;
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-bottom-color: var(--forest);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.1rem;
             overflow: hidden;
-            border: 3px solid var(--primary);
-        }
-        
-        .member-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .member-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-        }
-        
-        .member-info p {
-            color: #666;
-            font-style: italic;
-        }
-        
-        /* Gallery Section - UPDATED */
-        .gallery-container {
-            position: relative;
-            max-width: 100%;
-            margin: 2rem auto;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            height: 400px;
-        }
-        
-        .gallery-slider {
+            border: 3px solid var(--cream-dark);
+            transition: border-color 0.3s;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--secondary) 100%);
             display: flex;
-            transition: transform 0.5s ease;
-            height: 100%;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: white;
         }
-        
-        .gallery-slide {
-            min-width: 100%;
-            height: 100%;
+
+        .team-card:hover .team-avatar { border-color: var(--forest-light); }
+
+        .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .team-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
         }
-        
-        .gallery-slide img {
+
+        .team-role {
+            font-size: 0.78rem;
+            color: var(--forest);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .team-contact {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        /* ── FIELD TECHNICIANS ── */
+        #field-technicians { background: linear-gradient(135deg, var(--forest) 0%, var(--secondary) 100%); }
+
+        #field-technicians .section-label { color: var(--forest-light); }
+        #field-technicians .section-label::before { background: var(--forest-light); }
+        #field-technicians .section-title { color: white; }
+        #field-technicians .section-title span { color: var(--forest-light); }
+
+        #field-technicians .team-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.1); }
+        #field-technicians .team-card:hover { background: rgba(255,255,255,0.18); border-bottom-color: var(--forest-light); }
+        #field-technicians .team-card h3 { color: white; }
+        #field-technicians .team-role { color: var(--forest-light); }
+        #field-technicians .team-contact { color: rgba(255,255,255,0.6); }
+        #field-technicians .team-avatar { border-color: rgba(255,255,255,0.2); }
+        #field-technicians .team-card:hover .team-avatar { border-color: var(--forest-light); }
+
+        /* ── PROGRAMS ── */
+        #programs { background: var(--cream-dark); }
+
+        .program-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .program-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--forest) 100%);
+            padding: 2rem 2.5rem;
+            color: white;
+        }
+
+        .program-header .prog-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            color: var(--forest-light);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 0.8rem;
+        }
+
+        .program-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .program-body { padding: 2.5rem; }
+        .program-body p { color: var(--text-mid); font-size: 0.96rem; margin-bottom: 1rem; }
+
+        .program-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .program-images img {
             width: 100%;
-            height: 100%;
+            height: 160px;
             object-fit: cover;
+            border-radius: var(--radius);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
-        
-        .gallery-controls {
+
+        .program-images img:hover { transform: scale(1.03); }
+
+        /* ── NEWS ── */
+        #news { background: var(--cream); }
+
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+        .news-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+        .news-card.highlight { border: 2px solid var(--primary); }
+
+        .news-tag {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            background: var(--primary);
+            color: white;
+        }
+
+        .news-tag.green { background: var(--forest); }
+
+        .news-body { padding: 1.5rem; flex: 1; }
+
+        .news-date {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 0.7rem;
+        }
+
+        .news-body p { color: var(--text-mid); font-size: 0.9rem; }
+
+        /* ── GALLERY ── */
+        #gallery { background: #0D1F0A; }
+
+        #gallery .section-label { color: var(--forest-light); }
+        #gallery .section-label::before { background: var(--forest-light); }
+        #gallery .section-title { color: white; }
+        #gallery .section-desc { color: rgba(255,255,255,0.6); }
+
+        .gallery-wrapper {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            height: 520px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-slider { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.77,0,0.175,1); }
+
+        .gallery-slide { min-width: 100%; height: 100%; position: relative; }
+
+        .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .gallery-caption {
             position: absolute;
-            bottom: 20px;
+            bottom: 0;
             left: 0;
             right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 10;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            padding: 2rem 1.5rem 1.2rem;
+            color: white;
+            font-size: 0.85rem;
         }
-        
-        .gallery-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .gallery-dot.active {
-            background: white;
-        }
-        
-        .gallery-nav {
+
+        .gallery-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
             color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-            transition: background 0.3s ease;
+            transition: all 0.25s ease;
+            font-size: 1rem;
         }
-        
-        .gallery-nav:hover {
-            background: rgba(0, 0, 0, 0.8);
+
+        .gallery-btn:hover { background: rgba(255,255,255,0.25); }
+        .gallery-btn.prev { left: 18px; }
+        .gallery-btn.next { right: 18px; }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 18px;
+            right: 18px;
+            display: flex;
+            gap: 6px;
+            z-index: 10;
         }
-        
-        .gallery-nav.prev {
-            left: 15px;
+
+        .g-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        
-        .gallery-nav.next {
-            right: 15px;
+
+        .g-dot.active { background: white; width: 24px; border-radius: 4px; }
+
+        .gallery-counter {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.78rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            z-index: 10;
         }
-        
-        /* News Section */
-        .news-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .news-card {
+
+        /* ── CONTACT ── */
+        #contact { background: var(--cream-dark); }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+
+        .contact-info-box {
             background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            border-top: 4px solid var(--nature-green);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
         }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .news-content {
-            padding: 1.5rem;
-        }
-        
-        .news-date {
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        
-        .news-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+
+        .contact-info-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
             color: var(--secondary);
-        }
-        
-        /* Contact Section */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        .contact-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .contact-details {
             margin-bottom: 1.5rem;
         }
-        
-        .contact-details p {
-            margin-bottom: 0.5rem;
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--cream-dark);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .contact-details i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        /* Google Form Styling */
-        .google-form-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            height: 600px;
-            overflow: hidden;
-        }
-        
-        .google-form-container h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-            text-align: center;
-        }
-        
-        .google-form-description {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #555;
             font-size: 1rem;
-            line-height: 1.5;
+            flex-shrink: 0;
         }
-        
-        .google-form-frame {
+
+        .contact-item div { flex: 1; }
+
+        .contact-item strong {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .contact-item p { color: var(--text-mid); font-size: 0.9rem; }
+
+        .rivers-block {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .rivers-block h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .river-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+        .river-tag {
+            background: var(--cream-dark);
+            color: var(--forest);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.7rem;
+            border-radius: 50px;
+            border: 1px solid rgba(45,106,79,0.2);
+        }
+
+        .contact-form-box {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-form-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-box p { color: var(--text-mid); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        .contact-form-box iframe {
             width: 100%;
-            height: calc(100% - 80px);
+            height: 480px;
             border: none;
+            border-radius: var(--radius);
         }
-        
-        /* Footer */
+
+        /* ── FOOTER ── */
         footer {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, #0D1F0A 0%, var(--secondary) 100%);
+            color: rgba(255,255,255,0.75);
+            padding: 3.5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
             color: white;
-            padding: 2rem 0;
-            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
         }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .footer-logo {
+
+        .footer-brand p { font-size: 0.87rem; line-height: 1.7; color: rgba(255,255,255,0.55); }
+
+        .footer-col h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--forest-light);
             margin-bottom: 1rem;
         }
-        
-        .footer-links {
-            margin-bottom: 1rem;
-        }
-        
-        .footer-links a {
-            color: white;
-            margin: 0 10px;
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.55);
             text-decoration: none;
+            font-size: 0.87rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
         }
-        
-        .footer-links a:hover {
-            color: var(--accent);
+
+        .footer-col a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
         }
-        
-        /* Modal for team member details */
+
+        .footer-bottom a { color: var(--forest-light); text-decoration: none; }
+
+        /* ── MODAL ── */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 2000;
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
         }
-        
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+        .modal.open { display: flex; }
+
+        .modal-box {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            max-width: 520px;
+            width: 90%;
             position: relative;
+            box-shadow: var(--shadow-lg);
+            animation: modalIn 0.3s ease;
         }
-        
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+
+        @keyframes modalIn { from { opacity:0; transform: scale(0.9) translateY(20px); } to { opacity:1; transform: scale(1) translateY(0); } }
+
+        .modal-close {
             position: absolute;
-            right: 20px;
-            top: 10px;
-        }
-        
-        .close:hover,
-        .close:focus {
-            color: var(--primary);
-            text-decoration: none;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 36px;
+            height: 36px;
+            background: var(--cream-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-mid);
+            transition: background 0.2s;
         }
-        
-        /* Responsive Design */
+
+        .modal-close:hover { background: var(--cream); color: var(--primary); }
+
+        .modal-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            font-size: 0.92rem;
+        }
+
+        .modal-row strong { color: var(--forest); min-width: 100px; }
+        .modal-row span { color: var(--text-mid); }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.open { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: var(--radius);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── MOBILE NAV ── */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: #0D2137;
+            padding: 1rem 2rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mobile-nav.open { display: flex; }
+
+        .mobile-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 0.7rem 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .mobile-nav a:last-child { border-bottom: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .about-grid, .projects-grid { grid-template-columns: 1fr 1fr; }
+            nav { display: none; }
+            .hamburger { display: flex; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            nav ul li {
-                margin: 0.5rem;
-            }
-            
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .gallery-container {
-                height: 300px;
-            }
-            
-            .gallery-nav {
-                width: 30px;
-                height: 30px;
-            }
-            
-            .modal-content {
-                width: 90%;
-                margin: 20% auto;
-            }
-            
-            .google-form-container {
-                height: 500px;
-            }
+            .about-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+            .hero-stats { position: static; flex-wrap: wrap; margin-top: 2.5rem; }
+            .about-badge-img { width: 100px; height: 100px; bottom: -14px; right: -14px; }
+            .gallery-wrapper { height: 320px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
-        
+
         @media (max-width: 480px) {
-            .gallery-container {
-                height: 250px;
-            }
-            
-            .gallery-nav {
-                width: 25px;
-                height: 25px;
-                font-size: 0.8rem;
-            }
-            
-            .gallery-controls {
-                bottom: 10px;
-            }
+            section { padding: 3.5rem 0; }
+            .hero h2 { font-size: 2rem; }
+            .gallery-wrapper { height: 250px; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <div class="logo-img">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/logo.png?raw=true" alt="TITAN Logo">
-                </div>
-                <h1>The IPM Trainers Association Nepal</h1>
+
+<!-- ── HEADER ── -->
+<header>
+    <div class="header-inner">
+        <a class="logo" href="#">
+            <div class="logo-circle">
+                <img src="https://github.com/TitanNepal/Titan/blob/main/images/logo.png?raw=true" alt="TITAN Logo">
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#programs">Programs &amp; Meetings</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="logo-text">
+                <h1>TITAN Nepal</h1>
+                <span>IPM Trainers Association</span>
+            </div>
+        </a>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#team">Team</a>
+            <a href="#programs">Programs</a>
+            <a href="#news">News</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
         </div>
-    </header>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#about" onclick="closeMobileNav()">About</a>
+        <a href="#projects" onclick="closeMobileNav()">Projects</a>
+        <a href="#team" onclick="closeMobileNav()">Team</a>
+        <a href="#programs" onclick="closeMobileNav()">Programs</a>
+        <a href="#news" onclick="closeMobileNav()">News</a>
+        <a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+        <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    </div>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h2>एकीकृत शत्रुजीव व्यवस्थापन प्रशिक्षक संस्था नेपाल</h2>
-            <p>The IPM Trainers Association Nepal (TITAN) - Promoting sustainable natural resource management through farmer field schools since 2002</p>
-            <a href="#contact" class="btn">Get In Touch</a>
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <div class="hero-badge">SUSTAINABLE AGRICULTURE SINCE 2002</div>
+        <h2>Empowering <em>Farmers</em> &amp; Natural Resource Communities</h2>
+        <p class="hero-nepali">एकीकृत शत्रुजीव व्यवस्थापन प्रशिक्षक संस्था नेपाल</p>
+        <p>The IPM Trainers Association Nepal promotes integrated pest management and sustainable agriculture across Nepal through farmer-centered field schools and science-based solutions.</p>
+        <div class="hero-actions">
+            <a href="#projects" class="btn-primary">🌱 Our Projects</a>
+            <a href="#contact" class="btn-outline">Get In Touch</a>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About TITAN</h2>
+        <div class="hero-stats">
+            <div class="hero-stat fade-up">
+                <strong>60+</strong>
+                <span>NRM Field Schools</span>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Who We Are</h3>
-                    <p>The IPM Trainers Association Nepal (TITAN) is a professional network of experts dedicated to promoting Integrated Pest Management (IPM) and sustainable agriculture across Nepal. Established with the vision of empowering farmers and communities, TITAN has been at the forefront of designing, implementing, and scaling farmer-centered training programs since 2004.</p>
-                    
-                    <p>Over the years, TITAN has collaborated with national and international organizations—including FAO, HELVETAS, Care Bangladesh, CARITAS Nepal, Ministry of Agriculture and Livestock Development (MOALD), Wageningen International (Netherlands), and Russell IPM Ltd. (UK)—to develop curricula, conduct trainings, and implement field-based solutions.</p>
-
-                    <h3>Our Key Achievements</h3>
-                    <ul>
-                        <li>Developing and implementing Farmer Field Schools (FFS) and Natural Resource Management Field Schools (NRMFS) across multiple districts.</li>
-                        <li>Preparing national IPM and Pesticide Policy drafts in collaboration with the Department of Agriculture.</li>
-                        <li>Leading training on biological control, bio-pesticides, and eco-friendly technologies for sustainable crop protection.</li>
-                        <li>Publishing manuals and guidelines, including the Coffee Production and Marketing Manual and Standards for Plant Protection Laboratories.</li>
-                        <li>Demonstrating innovative technologies such as pheromone-based pest control systems for fruit fly management in Asia and Africa.</li>
-                    </ul>
-
-                    <p>Today, TITAN continues to work with farmers, researchers, and policymakers to strengthen community-based approaches for sustainable agriculture, climate resilience, and natural resource management. With over two decades of experience, we remain committed to building farmer capacity, promoting science-based solutions, and ensuring food security for future generations.</p>
-                </div>
-                <div class="about-image">
-                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/Profile%20image.jpg?raw=true" alt="TITAN Field Activities">
-                </div>
+            <div class="hero-stat fade-up" style="transition-delay:0.1s">
+                <strong>16</strong>
+                <span>River Systems</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" style="background-color: #f0f8f0;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Projects</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-21%20at%2012.10.59_442512c6.jpg?raw=true" alt="NRM Field Schools">
-                    </div>
-                    <div class="project-content">
-                        <h3>NRM Field Schools in Koshi Province</h3>
-                        <p>TITAN is currently operating 60 Natural Resource Management Field Schools across 16 river systems in Koshi Province, promoting climate-resilient land use practices.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-04-12%20at%2014.56.40_119ca8f8.jpg?raw=true" alt="BRCRN Project">
-                    </div>
-                    <div class="project-content">
-                        <h3>Building a Resilient Churia Region</h3>
-                        <p>Working with FAO and MoFE on Nepal's first full-scale GCF funded project across 26 river systems in Koshi, Madhesh, and Bagmati Provinces.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.50.22_1ac198e0.jpg?raw=true" alt="Farmer Training">
-                    </div>
-                    <div class="project-content">
-                        <h3>Farmer Training & Capacity Building</h3>
-                        <p>Conducting training programs for farmers on sustainable agriculture, forest management, and climate-resilient practices through the field school approach.</p>
-                    </div>
-                </div>
+            <div class="hero-stat fade-up" style="transition-delay:0.2s">
+                <strong>20+</strong>
+                <span>Years of Impact</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Team Section -->
-    <section id="team">
-        <div class="container">
-            <div class="section-title">
-                <h2>Executive Committee</h2>
+<!-- ── ABOUT ── -->
+<section id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-image-block fade-up">
+                <div class="about-leaf"></div>
+                <img class="main-img" src="https://github.com/TitanNepal/Titan/blob/main/images/Profile%20image.jpg?raw=true" alt="TITAN Field Activities">
+                <img class="about-badge-img" src="https://github.com/TitanNepal/Titan/blob/main/images/halojuwa.jpg?raw=true" alt="Field Work">
             </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Dr.ratnakumarjhap.jpeg?raw=true" alt="Dr. Ratna Kumar Jha">
+            <div class="about-text fade-up" style="transition-delay:0.15s">
+                <div class="section-label">Who We Are</div>
+                <h2 class="section-title">Building <span>Climate-Resilient</span> Communities Since 2002</h2>
+                <p>TITAN is a professional network of experts dedicated to promoting Integrated Pest Management (IPM) and sustainable agriculture across Nepal. Established with the vision of empowering farmers and communities, TITAN has been at the forefront of designing, implementing, and scaling farmer-centered training programs.</p>
+                <p>Over the years, TITAN has collaborated with national and international organizations to develop curricula, conduct trainings, and implement field-based solutions for sustainable natural resource management.</p>
+
+                <div class="achievements-list">
+                    <div class="achievement-item">
+                        <span class="icon">🌾</span>
+                        Farmer Field Schools (FFS) &amp; NRM Field Schools across multiple districts.
                     </div>
-                    <div class="member-info">
-                        <h3>Dr. Ratna Kumar Jha</h3>
-                        <p>Chairperson</p>
-                        <p>+977-9841236604</p>
+                    <div class="achievement-item">
+                        <span class="icon">📋</span>
+                        Contributed to national IPM &amp; Pesticide Policy drafts with the Department of Agriculture.
                     </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <div style="width:100%;height:100%;background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:2.5rem;">DT</div>
+                    <div class="achievement-item">
+                        <span class="icon">🔬</span>
+                        Training on biological control, bio-pesticides, and eco-friendly crop protection.
                     </div>
-                    <div class="member-info">
-                        <h3>Mr. Dinesh Babu Tiwari</h3>
-                        <p>Vice-Chairperson</p>
-                        <p>+977-9841417834</p>
+                    <div class="achievement-item">
+                        <span class="icon">📗</span>
+                        Published manuals including the Coffee Production &amp; Marketing Manual.
                     </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/rajendra%20malla.jpeg?raw=true" alt="Mr. Rajendra Kumar Malla">
-                    </div>
-                    <div class="member-info">
-                        <h3>Mr. Rajendra Kumar Malla</h3>
-                        <p>General Secretary</p>
+                    <div class="achievement-item">
+                        <span class="icon">🦋</span>
+                        Pheromone-based pest control demonstrations across Asia and Africa.
                     </div>
                 </div>
-                    <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Yamkumarshrestha.jpeg?raw=true" alt="Mr. Yam Kumar Shrestha">
-                    </div>
-                    <div class="member-info">
-                        <h3>Mr. Yam Kumar Shrestha</h3>
-                        <p>Treasurer</p>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/krishnabdradhikari.jpeg?raw=true" alt="Mr. Krishna Bhadra Adhikari">
-                    </div>
-                    <div class="member-info">
-                        <h3>Mr. Krishna Bhadra Adhikari</h3>
-                        <p>Executive Committee Member</p>
-                    </div>
-                </div>
-               <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Parshu%20sir.jpg?raw=true" alt="Mr. Parshuram Adhikari">
-                    </div>
-                    <div class="member-info">
-                        <h3>Mr. Parshu Ram Adhikari</h3>
-                        <p>Advisory Comittee Member</p>
-                        <p>+977-9841564804</p>
-                    </div>
-                </div>     
-                <div class="team-member">
-                    <div class="member-img">
-                       <img src="https://github.com/TitanNepal/Titan/blob/main/images/Dhakal.PNG?raw=true" alt="Mr. Dharmendra Dhakal" style="cursor:pointer;" onclick="showMemberModal()">
-                    </div>
-                    <div class="member-info">
-                        <h3 style="cursor:pointer;" onclick="showMemberModal()">Mr. Dharmendra Dhakal</h3>
-                        <p>+977-9842759960</p>
-                        <p>Email-dharmendradhakal14@gmail.com</p>
-                        <p>NRM FS Provincial Coordinator (Koshi)</p>
-                    </div>
+
+                <div class="partners">
+                    <span class="partner-tag">FAO</span>
+                    <span class="partner-tag">HELVETAS</span>
+                    <span class="partner-tag">Care Bangladesh</span>
+                    <span class="partner-tag">CARITAS Nepal</span>
+                    <span class="partner-tag">MOALD</span>
+                    <span class="partner-tag">Wageningen International</span>
+                    <span class="partner-tag">Russell IPM Ltd. (UK)</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Natural Resource Management Field Technicians Section -->
-    <section id="field-technicians" style="background-color: #f0f8f0;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Natural Resource Management Field Technicians</h2>
+<!-- ── PROJECTS ── -->
+<section id="projects">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">Projects &amp; <span>Field Programmes</span></h2>
+            <p class="section-desc">From Koshi Province's river systems to GCF-funded climate resilience projects, our work spans communities, ecosystems, and generations.</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-up">
+                <div class="project-img">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-02-21%20at%2012.10.59_442512c6.jpg?raw=true" alt="NRM Field Schools">
+                    <span class="project-tag">ONGOING</span>
+                </div>
+                <div class="project-content">
+                    <h3>NRM Field Schools in Koshi Province</h3>
+                    <p>Operating 60 Natural Resource Management Field Schools across 16 river systems, promoting climate-resilient land use practices in Koshi Province.</p>
+                </div>
             </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Bikram.jpeg?raw=true" alt="Bikram Raya">
-                    </div>
-                    <div class="member-info">
-                        <h3>Bikram Raya</h3>
-                        <p>Field Technician</p>
-                        <p>Field Station: Ilam and Jhapa</p>
-                    </div>
+            <div class="project-card fade-up" style="transition-delay:0.1s">
+                <div class="project-img">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-04-12%20at%2014.56.40_119ca8f8.jpg?raw=true" alt="BRCRN Project">
+                    <span class="project-tag">GCF FUNDED</span>
                 </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Anamika.jpeg?raw=true" alt="Anamika Sampang Rai">
-                    </div>
-                    <div class="member-info">
-                        <h3>Anamika Sampang Rai</h3>
-                        <p>Field Technician</p>
-                        <p>Field Station: Sunsari and Morang</p>
-                    </div>
+                <div class="project-content">
+                    <h3>Building a Resilient Churia Region</h3>
+                    <p>Working with FAO and MoFE on Nepal's first full-scale GCF funded project across 26 river systems in Koshi, Madhesh, and Bagmati Provinces.</p>
                 </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Sangam.jpeg?raw=true" alt="Sangam Tamling Limbu">
-                    </div>
-                    <div class="member-info">
-                        <h3>Sangam Tamling Limbu</h3>
-                        <p>Field Technician</p>
-                        <p>Field Station: Ilam and Jhapa</p>
-                    </div>
+            </div>
+            <div class="project-card fade-up" style="transition-delay:0.2s">
+                <div class="project-img">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-21%20at%2013.50.22_1ac198e0.jpg?raw=true" alt="Farmer Training">
+                    <span class="project-tag">CAPACITY BUILDING</span>
                 </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Laxmi.jpeg?raw=true" alt="Laxmi Basnet">
-                    </div>
-                    <div class="member-info">
-                        <h3>Laxmi Basnet</h3>
-                        <p>Field Technician</p>
-                        <p>Field Station: Sunsari and Udayapur</p>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-img">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/Dev%20kumari.jpeg?raw=true" alt="Dev Kumari Raut">
-                    </div>
-                    <div class="member-info">
-                        <h3>Dev Kumari Raut</h3>
-                        <p>Field Technician</p>
-                        <p>Field Station: Udayapur</p>
-                    </div>
+                <div class="project-content">
+                    <h3>Farmer Training &amp; Capacity Building</h3>
+                    <p>Conducting training programs on sustainable agriculture, forest management, and climate-resilient practices through the field school approach.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- NEW: Programs & Meetings Section -->
-    <section id="programs" style="background-color: #f0f8f0;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Programs &amp; Meetings</h2>
+<!-- ── TEAM ── -->
+<section id="team">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Leadership</div>
+            <h2 class="section-title">Executive <span>Committee</span></h2>
+            <p class="section-desc">Our dedicated team of IPM specialists and natural resource management experts leading TITAN's mission.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card fade-up">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Dr.ratnakumarjhap.jpeg?raw=true" alt="Dr. Ratna Kumar Jha" onerror="this.style.display='none'"></div>
+                <h3>Dr. Ratna Kumar Jha</h3>
+                <div class="team-role">Chairperson</div>
+                <div class="team-contact">+977-9841236604</div>
             </div>
-            <div class="news-container">
-                <div class="news-card" style="border-top: 4px solid #003893;">
-                    <div class="news-content">
-                        <span class="news-date">August 25, 2025</span>
-                        <h3>NRM Field School Orientation</h3>
-                        <p>A program was held on 25 August 2025 with the presence of BRCRN project National Project Director and National Project Manager, along with other related officers and Natural Resource Management Field School facilitators from the 5 districts (Jhapa, Ilam, Morang, Sunsari, and Udayapur).</p>
-                        <p>The program was focused on the management and running of Natural Resource Management Field Schools, providing orientation and guidance to facilitators for effective implementation.</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
-                            <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.09_1fc593e2.jpg?raw=true" alt="NRM Field School Program" style="width: 100%; max-width: 250px; height: auto; border-radius: 5px;">
-                            <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.08_cd678ffd.jpg?raw=true" alt="NRM Field School Program" style="width: 100%; max-width: 250px; height: auto; border-radius: 5px;">
-                            <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.08_ab78941d.jpg?raw=true" alt="NRM Field School Program" style="width: 100%; max-width: 250px; height: auto; border-radius: 5px;">
-                            <img src="https://github.com/TitanNepal/Titan/blob/main/images/meandparsusir.jpg?raw=true" alt="NRM Field School Program" style="width: 100%; max-width: 250px; height: auto; border-radius: 5px;">
+            <div class="team-card fade-up" style="transition-delay:0.08s">
+                <div class="team-avatar">DT</div>
+                <h3>Mr. Dinesh Babu Tiwari</h3>
+                <div class="team-role">Vice-Chairperson</div>
+                <div class="team-contact">+977-9841417834</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.16s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/rajendra%20malla.jpeg?raw=true" alt="Mr. Rajendra Kumar Malla" onerror="this.style.display='none'"></div>
+                <h3>Mr. Rajendra Kumar Malla</h3>
+                <div class="team-role">General Secretary</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.24s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Yamkumarshrestha.jpeg?raw=true" alt="Mr. Yam Kumar Shrestha" onerror="this.style.display='none'"></div>
+                <h3>Mr. Yam Kumar Shrestha</h3>
+                <div class="team-role">Treasurer</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.32s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/krishnabdradhikari.jpeg?raw=true" alt="Mr. Krishna Bhadra Adhikari" onerror="this.style.display='none'"></div>
+                <h3>Mr. Krishna Bhadra Adhikari</h3>
+                <div class="team-role">Executive Committee Member</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.40s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Parshu%20sir.jpg?raw=true" alt="Mr. Parshu Ram Adhikari" onerror="this.style.display='none'"></div>
+                <h3>Mr. Parshu Ram Adhikari</h3>
+                <div class="team-role">Advisory Committee Member</div>
+                <div class="team-contact">+977-9841564804</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.48s; cursor:pointer;" onclick="openModal()">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Dhakal.PNG?raw=true" alt="Mr. Dharmendra Dhakal" onerror="this.style.display='none'"></div>
+                <h3>Mr. Dharmendra Dhakal</h3>
+                <div class="team-role">NRM FS Provincial Coordinator (Koshi)</div>
+                <div class="team-contact">+977-9842759960</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FIELD TECHNICIANS ── -->
+<section id="field-technicians">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Field Operations</div>
+            <h2 class="section-title">NRM Field <span>Technicians</span></h2>
+            <p class="section-desc" style="color:rgba(255,255,255,0.65);">Our on-ground specialists working directly with communities across Koshi Province.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card fade-up">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Bikram.jpeg?raw=true" alt="Bikram Raya" onerror="this.style.display='none'"></div>
+                <h3>Bikram Raya</h3>
+                <div class="team-role">Field Technician</div>
+                <div class="team-contact">Ilam &amp; Jhapa</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.1s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Anamika.jpeg?raw=true" alt="Anamika Sampang Rai" onerror="this.style.display='none'"></div>
+                <h3>Anamika Sampang Rai</h3>
+                <div class="team-role">Field Technician</div>
+                <div class="team-contact">Sunsari &amp; Morang</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.2s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Sangam.jpeg?raw=true" alt="Sangam Tamling Limbu" onerror="this.style.display='none'"></div>
+                <h3>Sangam Tamling Limbu</h3>
+                <div class="team-role">Field Technician</div>
+                <div class="team-contact">Ilam &amp; Jhapa</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.3s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Laxmi.jpeg?raw=true" alt="Laxmi Basnet" onerror="this.style.display='none'"></div>
+                <h3>Laxmi Basnet</h3>
+                <div class="team-role">Field Technician</div>
+                <div class="team-contact">Sunsari &amp; Udayapur</div>
+            </div>
+            <div class="team-card fade-up" style="transition-delay:0.4s">
+                <div class="team-avatar"><img src="https://github.com/TitanNepal/Titan/blob/main/images/Dev%20kumari.jpeg?raw=true" alt="Dev Kumari Raut" onerror="this.style.display='none'"></div>
+                <h3>Dev Kumari Raut</h3>
+                <div class="team-role">Field Technician</div>
+                <div class="team-contact">Udayapur</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PROGRAMS ── -->
+<section id="programs">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Programs &amp; Meetings</div>
+            <h2 class="section-title">Recent <span>Events</span></h2>
+        </div>
+        <div class="program-card fade-up">
+            <div class="program-header">
+                <div class="prog-date">📅 August 25, 2025</div>
+                <h3>NRM Field School Orientation — Itahari</h3>
+            </div>
+            <div class="program-body">
+                <p>A program was held on 25 August 2025 with the presence of BRCRN project National Project Director and National Project Manager, along with other related officers and Natural Resource Management Field School facilitators from 5 districts (Jhapa, Ilam, Morang, Sunsari, and Udayapur).</p>
+                <p>The program focused on the management and running of Natural Resource Management Field Schools, providing orientation and guidance to facilitators for effective implementation.</p>
+                <div class="program-images">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.09_1fc593e2.jpg?raw=true" alt="NRM Orientation 1" onclick="openLightbox(this.src)">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.08_cd678ffd.jpg?raw=true" alt="NRM Orientation 2" onclick="openLightbox(this.src)">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/WhatsApp%20Image%202025-08-25%20at%2016.31.08_ab78941d.jpg?raw=true" alt="NRM Orientation 3" onclick="openLightbox(this.src)">
+                    <img src="https://github.com/TitanNepal/Titan/blob/main/images/meandparsusir.jpg?raw=true" alt="NRM Orientation 4" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── NEWS ── -->
+<section id="news">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Latest</div>
+            <h2 class="section-title">News &amp; <span>Announcements</span></h2>
+        </div>
+        <div class="news-grid">
+            <div class="news-card highlight fade-up">
+                <div class="news-tag">📢 NOTICE</div>
+                <div class="news-body">
+                    <div class="news-date">August 22, 2025</div>
+                    <h3>Orientation Session for NRM FS Facilitators</h3>
+                    <p><strong>TITAN</strong> is organizing an <strong>Orientation Session</strong> in <strong>Itahari on 25 August 2025</strong>. Facilitators should arrive on time and bring all field school documents.</p>
+                </div>
+            </div>
+            <div class="news-card fade-up" style="transition-delay:0.1s">
+                <div class="news-tag green">TRAINING</div>
+                <div class="news-body">
+                    <div class="news-date">July 15, 2024</div>
+                    <h3>Training Programme for Farmers — Koshi Province</h3>
+                    <p>A comprehensive training program on integrated pest management for farmers in Koshi Province is being organized for the upcoming season.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Visual Stories</div>
+            <h2 class="section-title">Our <span>Gallery</span></h2>
+            <p class="section-desc">A glimpse into our field activities, community engagement, and natural landscapes across Nepal.</p>
+        </div>
+        <div class="gallery-wrapper fade-up">
+            <div class="gallery-slider" id="gallerySlider">
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/vasan%20in%20sangam%20field.jpg?raw=true" alt="Field Activity"><div class="gallery-caption">Field activities in Sangam</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapyr.jpg?raw=true" alt="Udayapur"><div class="gallery-caption">Udayapur District</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapur.jpg?raw=true" alt="Udayapur"><div class="gallery-caption">Community engagement in Udayapur</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting.jpg?raw=true" alt="Transplanting"><div class="gallery-caption">Transplanting demonstration</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting%20(2).jpg?raw=true" alt="Transplanting"><div class="gallery-caption">Community transplanting activity</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/tennpani.jpg?raw=true" alt="Tenpani"><div class="gallery-caption">Field work in Tenpani</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/supade.jpg?raw=true" alt="Supade"><div class="gallery-caption">Field site at Supade</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/sunkoshi.jpg?raw=true" alt="Sunkoshi"><div class="gallery-caption">Sunkoshi River basin</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/soil%20conservation.jpg?raw=true" alt="Soil Conservation"><div class="gallery-caption">Soil conservation practices</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/satya.jpg?raw=true" alt="Satya"><div class="gallery-caption">Field school session</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/satya%20vasan.jpg?raw=true" alt="Satya Vasan"><div class="gallery-caption">Field demonstration</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%206.jpg?raw=true" alt="Rong"><div class="gallery-caption">River system monitoring</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%202.jpg?raw=true" alt="Rong 2"><div class="gallery-caption">Community learning session</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/review.jpg?raw=true" alt="Review"><div class="gallery-caption">Project review meeting</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery%20cure.jpg?raw=true" alt="Nursery Care"><div class="gallery-caption">Nursery care training</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/mahadewa.jpg?raw=true" alt="Mahadewa"><div class="gallery-caption">Field work in Mahadewa area</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/letang.jpg?raw=true" alt="Letang"><div class="gallery-caption">Letang field station</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/letang%20sangam.jpg?raw=true" alt="Letang Sangam"><div class="gallery-caption">Letang Sangam activities</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/diwash.jpg?raw=true" alt="Diwash"><div class="gallery-caption">Field school session</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/harka.jpg?raw=true" alt="Harka"><div class="gallery-caption">Community engagement</div></div>
+                <div class="gallery-slide"><img src="https://github.com/TitanNepal/Titan/blob/main/images/dev%20kumari%20field%20celebration.jpg?raw=true" alt="Field Celebration"><div class="gallery-caption">Field school celebration</div></div>
+            </div>
+
+            <button class="gallery-btn prev" onclick="galleryPrev()">&#10094;</button>
+            <button class="gallery-btn next" onclick="galleryNext()">&#10095;</button>
+
+            <div class="gallery-dots" id="galleryDots"></div>
+            <div class="gallery-counter" id="galleryCounter">1 / 21</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Reach Out</div>
+            <h2 class="section-title">Contact <span>Us</span></h2>
+        </div>
+        <div class="contact-grid">
+            <div class="fade-up">
+                <div class="contact-info-box">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Address</strong>
+                            <p>Lalitpur Metropolitan City-3, Harihar Bhawan, Lalitpur, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:titanepal.2002@gmail.com" style="color:var(--forest);text-decoration:none;">titanepal.2002@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Phone (Chairperson)</strong>
+                            <p>+977-9841564804</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🏛️</div>
+                        <div>
+                            <strong>Registration</strong>
+                            <p>Regd. No. 04/059/060 · VAT 301213000</p>
+                        </div>
+                    </div>
+                    <div class="rivers-block">
+                        <h4>River Systems — Koshi Province</h4>
+                        <div class="river-tags">
+                            <span class="river-tag">Kankai</span>
+                            <span class="river-tag">Mechi</span>
+                            <span class="river-tag">Ratuwa</span>
+                            <span class="river-tag">Biring</span>
+                            <span class="river-tag">Bakraha</span>
+                            <span class="river-tag">Lohandra</span>
+                            <span class="river-tag">Budhi</span>
+                            <span class="river-tag">Tawa South</span>
+                            <span class="river-tag">Patnali</span>
+                            <span class="river-tag">Kokaha</span>
+                            <span class="river-tag">Andheri</span>
+                            <span class="river-tag">Baruwa</span>
+                            <span class="river-tag">Duar</span>
+                            <span class="river-tag">Gideri</span>
+                            <span class="river-tag">Sunkoshi</span>
+                            <span class="river-tag">Balan (Upstream)</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section id="news" style="background-color: #f0f8f0;">
-        <div class="container">
-            <div class="section-title">
-                <h2>News & Announcements</h2>
-            </div>
-            <div class="news-container">
-                <!-- Highlighted Notice -->
-                <div class="news-card" style="border-top: 4px solid #DC143C; background-color:#fff8f0;">
-                    <div class="news-content">
-                        <span class="news-date">August 22, 2025</span>
-                        <h3>📢 Notice for NRM FS Facilitators</h3>
-                        <p><strong>TITAN</strong> is going to organize <strong>Orientation Sessions</strong> in 
-                           <strong>Itahari on 25 August 2025</strong>.  
-                           Facilitators should come on proper time bringing all field school documents.</p>
-                    </div>
-                </div>
-
-                <!-- Other News -->
-                <div class="news-card">
-                    <div class="news-content">
-                        <span class="news-date">July 15, 2024</span>
-                        <h3>Training Program for Farmers</h3>
-                        <p>We are organizing a comprehensive training program on integrated pest management for farmers in Koshi Province from next month.</p>
-                    </div>
+            <div class="fade-up" style="transition-delay:0.15s">
+                <div class="contact-form-box">
+                    <h3>Send Us a Message</h3>
+                    <p>Have a question about our trainings, membership, or IPM activities? We'll get back to you soon.</p>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfEQD8HNm1iT9OUSzORXogG0i3A59OknXfAP-D2_VHR6oUzng/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" title="Contact Form">Loading…</iframe>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Modal for Dharmendra Dhakal -->
-    <div id="memberModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeMemberModal()">&times;</span>
-            <h2>Dharmendra Dhakal</h2>
-            <p><strong>Position:</strong> NRM Field School Provincial Coordinator (Koshi)</p>
-            <p><strong>Expertise:</strong> Natural Resource Management, agronomy research, and community engagement. Skilled in project coordination and sustainable practices.</p>
-            <p><strong>Experience:</strong> Currently serving as NRM Field School Provincial Coordinator for The IPM Trainers Association Nepal (TITAN) / FAO Nepal (BRCRN Project), coordinating climate-resilient NRM activities across Koshi Province.</p>
-            <p><strong>Contact:</strong> +977-9842759960 | dharmendradhakal14@gmail.com</p>
         </div>
     </div>
+</section>
 
-    <!-- Gallery Section - UPDATED -->
-    <section id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Gallery</h2>
-            </div>
-            <p style="text-align: center; margin-bottom: 2rem;">A glimpse into our field activities and community engagement programs</p>
-            
-            <div class="gallery-container">
-                <div class="gallery-slider">
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/vasan%20in%20sangam%20field.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapyr.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/udayapur.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting.jpg?raw=true" alt="Transplanting Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/transplanting%20(2).jpg?raw=true" alt="Transplanting Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/tennpani.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/supade.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/sunkoshi.jpg?raw=true" alt="Sunkoshi River">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/soil%20conservation.jpg?raw=true" alt="Soil Conservation">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/satya%20vasan.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%206.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/rong%202.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/review.jpg?raw=true" alt="Project Review">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/nursery%20cure.jpg?raw=true" alt="Nursery Care">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/mahadewa.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/letang%20sangam.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwash.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/diwah%20upasthiti.jpg?raw=true" alt="Field Activity">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/dev%20kumari%20field%20celebration.jpg?raw=true" alt="Field Celebration">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="https://github.com/TitanNepal/Titan/blob/main/images/harka.jpg?raw=true" alt="Field Activity">
-                    </div>
-                </div>
-                
-                <button class="gallery-nav prev">&#10094;</button>
-                <button class="gallery-nav next">&#10095;</button>
-                
-                <div class="gallery-controls">
-                    <!-- Dots will be generated by JavaScript -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <div class="contact-details">
-                        <p><strong>Address:</strong> Lalitpur Metropolitan City-3, Harihar Bhawan, Lalitpur, Nepal</p>
-                        <p><strong>Email:</strong> titanepal.2002@gmail.com</p>
-                        <p><strong>Phone:</strong> +977-9841564804 (Chairperson)</p>
-                        <p><strong>Registration:</strong> Regd.No.04/059/060, VAT No-301213000</p>
-                    </div>
-                    
-                    <h3 style="margin-top: 2rem;">River Systems in Koshi Province</h3>
-                    <p>TITAN is currently working in 16 river systems across Koshi Province:</p>
-                    <ul>
-                        <li>Kankai, Mechi, Ratuwa, Biring</li>
-                        <li>Bakraha, Lohandra, Budhi</li>
-                        <li>Tawa South, Patnali, Kokaha</li>
-                        <li>Andheri, Baruwa, Duar, Gideri</li>
-                        <li>Sunkoshi, Balan (Upstream)</li>
-                        <li>Tawa North, Kamala-Belsot-Jogiya</li>
-                    </ul>
-                </div>
-                
-                <!-- Google Form Section -->
-                <div class="google-form-container">
-                    <h3>Send Us a Message</h3>
-                    <p class="google-form-description">
-                        Have a question about our trainings, membership, or IPM activities? 
-                        Fill out the form below and our team will get back to you as soon as possible.
-                    </p>
-                    <iframe class="google-form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLSfEQD8HNm1iT9OUSzORXogG0i3A59OknXfAP-D2_VHR6oUzng/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
                 <h3>The IPM Trainers Association Nepal</h3>
+                <p>Promoting sustainable natural resource management and integrated pest management through farmer-centered field schools across Nepal since 2002.</p>
             </div>
-            <div class="footer-links">
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#team">Team</a>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <a href="#about">About TITAN</a>
+                <a href="#projects">Our Projects</a>
+                <a href="#team">Executive Committee</a>
                 <a href="#programs">Programs &amp; Meetings</a>
-                <a href="#news">News</a>
                 <a href="#gallery">Gallery</a>
-                <a href="#contact">Contact</a>
             </div>
-            <p>&copy; 2023 TITAN - The IPM Trainers Association Nepal. All rights reserved.</p>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:titanepal.2002@gmail.com">titanepal.2002@gmail.com</a>
+                <a href="tel:+9779841564804">+977-9841564804</a>
+                <a href="#contact">Lalitpur, Nepal</a>
+            </div>
         </div>
-    </footer>
+        <div class="footer-bottom">
+            <span>© 2025 TITAN — The IPM Trainers Association Nepal. All rights reserved.</span>
+            <span>Regd. No. 04/059/060 · <a href="#contact">VAT 301213000</a></span>
+        </div>
+    </div>
+</footer>
 
-    <script>
-        // Function to show modal with Dharmendra Dhakal's details
-        function showMemberModal() {
-            document.getElementById("memberModal").style.display = "block";
+<!-- ── MEMBER MODAL ── -->
+<div class="modal" id="memberModal" onclick="closeModal(event)">
+    <div class="modal-box">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <h2>Dharmendra Dhakal</h2>
+        <div class="modal-row"><strong>Position</strong><span>NRM Field School Provincial Coordinator (Koshi)</span></div>
+        <div class="modal-row"><strong>Expertise</strong><span>Natural Resource Management, agronomy research, and community engagement. Skilled in project coordination and sustainable practices.</span></div>
+        <div class="modal-row"><strong>Experience</strong><span>Currently coordinating climate-resilient NRM activities across Koshi Province under TITAN / FAO Nepal (BRCRN Project).</span></div>
+        <div class="modal-row"><strong>Phone</strong><span>+977-9842759960</span></div>
+        <div class="modal-row"><strong>Email</strong><span>dharmendradhakal14@gmail.com</span></div>
+    </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <img id="lightboxImg" src="" alt="Lightbox">
+</div>
+
+<script>
+    // Hero bg animation
+    window.addEventListener('load', () => {
+        document.getElementById('heroBg').classList.add('loaded');
+    });
+
+    // Mobile nav
+    function toggleMobileNav() {
+        document.getElementById('mobileNav').classList.toggle('open');
+    }
+    function closeMobileNav() {
+        document.getElementById('mobileNav').classList.remove('open');
+    }
+
+    // Modal
+    function openModal() {
+        document.getElementById('memberModal').classList.add('open');
+    }
+    function closeModal(e) {
+        if (!e || e.target === document.getElementById('memberModal')) {
+            document.getElementById('memberModal').classList.remove('open');
         }
-        
-        // Function to close the modal
-        function closeMemberModal() {
-            document.getElementById("memberModal").style.display = "none";
+    }
+
+    // Lightbox
+    function openLightbox(src) {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+    }
+
+    // Gallery
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const totalSlides = gallerySlides.length;
+    let currentSlide = 0;
+    let slideInterval;
+
+    const dotsContainer = document.getElementById('galleryDots');
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'g-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+    }
+
+    function goToSlide(n) {
+        currentSlide = (n + totalSlides) % totalSlides;
+        document.getElementById('gallerySlider').style.transform = `translateX(-${currentSlide * 100}%)`;
+        document.querySelectorAll('.g-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        document.getElementById('galleryCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+    }
+
+    function galleryNext() { goToSlide(currentSlide + 1); }
+    function galleryPrev() { goToSlide(currentSlide - 1); }
+
+    function startAutoSlide() { slideInterval = setInterval(galleryNext, 5000); }
+    function stopAutoSlide() { clearInterval(slideInterval); }
+
+    const galleryWrapper = document.querySelector('.gallery-wrapper');
+    galleryWrapper.addEventListener('mouseenter', stopAutoSlide);
+    galleryWrapper.addEventListener('mouseleave', startAutoSlide);
+
+    // Touch swipe
+    let touchStart = 0;
+    galleryWrapper.addEventListener('touchstart', e => touchStart = e.changedTouches[0].screenX);
+    galleryWrapper.addEventListener('touchend', e => {
+        const diff = touchStart - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) diff > 0 ? galleryNext() : galleryPrev();
+    });
+
+    startAutoSlide();
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Keyboard close
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            closeModal();
+            closeLightbox();
         }
-        
-        // Close the modal when clicking outside of it
-        window.onclick = function(event) {
-            var modal = document.getElementById("memberModal");
-            if (event.target == modal) {
-                closeMemberModal();
-            }
-        }
-        
-        // Gallery Slider Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.querySelector('.gallery-slider');
-            const slides = document.querySelectorAll('.gallery-slide');
-            const prevBtn = document.querySelector('.gallery-nav.prev');
-            const nextBtn = document.querySelector('.gallery-nav.next');
-            const dotsContainer = document.querySelector('.gallery-controls');
-            
-            let currentSlide = 0;
-            const slideCount = slides.length;
-            
-            // Create dots for navigation
-            for (let i = 0; i < slideCount; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('gallery-dot');
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
-            }
-            
-            const dots = document.querySelectorAll('.gallery-dot');
-            
-            // Function to go to a specific slide
-            function goToSlide(n) {
-                currentSlide = n;
-                updateSlider();
-            }
-            
-            // Function to update slider position and active dot
-            function updateSlider() {
-                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                // Update active dot
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-            
-            // Next slide
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % slideCount;
-                updateSlider();
-            }
-            
-            // Previous slide
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-                updateSlider();
-            }
-            
-            // Event listeners for navigation buttons
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-            
-            // Auto slide every 5 seconds
-            let slideInterval = setInterval(nextSlide, 5000);
-            
-            // Pause auto sliding when hovering over the slider
-            const galleryContainer = document.querySelector('.gallery-container');
-            galleryContainer.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-            
-            galleryContainer.addEventListener('mouseleave', () => {
-                slideInterval = setInterval(nextSlide, 5000);
-            });
-            
-            // Touch events for mobile swipe
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            galleryContainer.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-            
-            galleryContainer.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                const minSwipeDistance = 50; // Minimum distance for a swipe to be registered
-                
-                if (touchStartX - touchEndX > minSwipeDistance) {
-                    // Swipe left - next slide
-                    nextSlide();
-                } else if (touchEndX - touchStartX > minSwipeDistance) {
-                    // Swipe right - previous slide
-                    prevSlide();
-                }
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
